@@ -1,0 +1,9 @@
+{
+    var x = 4,
+		var y = "",
+    proc example(){
+        if ((x % 2) == 0) then y := "par" else y := "ímpar"
+    };
+    call example();
+    write(y)
+}
