@@ -527,8 +527,12 @@ Expressao PExpBinaria() :
 			retorno = PExpOr()
 		| LOOKAHEAD (PExpPrimaria() <EQ>)
 			retorno = PExpEquals()
+		| LOOKAHEAD (PExpPrimaria() <NE>)
+			retorno = PExpNotEquals()
 		| LOOKAHEAD (PExpPrimaria() <PLUS>)
 			retorno = PExpSoma()
+		| LOOKAHEAD (PExpPrimaria() <REM>)
+			retorno = PExpRem()
 	)
 	{
 		return retorno;
@@ -597,6 +601,17 @@ ExpEquals PExpEquals() :
 	{return new ExpEquals(esq, dir);}
 }
 
+ExpNotEquals PExpNotEquals() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpPrimaria()
+	<NE>
+	dir = PExpressao()
+	{return new ExpNotEquals(esq, dir);}
+}
 
 ExpConcat PExpConcat() :
 {
@@ -610,6 +625,18 @@ ExpConcat PExpConcat() :
 	{return new ExpConcat(esq, dir);}
 }
 
+ExpRem PExpRem() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpPrimaria()
+	<REM>
+	dir = PExpressao()
+	{return new ExpRem(esq, dir);}
+}
+
 Expressao PExpressao() :
 {
 	Expressao retorno;
@@ -618,7 +645,7 @@ Expressao PExpressao() :
 	(
 	    LOOKAHEAD (2) 
 	  		retorno = PExpUnaria()
-	  | LOOKAHEAD (PExpPrimaria() (<OR> | <AND> | <MINUS> | <PLUS> | <EQ> | <CONCAT>)) 
+	  | LOOKAHEAD (PExpPrimaria() (<OR> | <AND> | <MINUS> | <PLUS> | <EQ> | < NE > | <CONCAT> | < REM >)) 
 	  		retorno = PExpBinaria()
 	  |
 	    retorno = PExpPrimaria()
