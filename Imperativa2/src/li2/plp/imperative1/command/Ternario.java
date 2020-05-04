@@ -59,13 +59,6 @@ public class Ternario implements Comando {
 				&& comandoInterrogacao.checaTipo(ambiente) && comandoDoisPontos.checaTipo(ambiente);
 	}
 
-	@Override
-	public AmbienteCompilacaoImperativa corrigir(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		if (expressao instanceof ExpRem) {
-			expressao = new ExpNotEquals(expressao, new ValorInteiro(0));
-		}
-		return ambiente;
-	}
+
 
 }
