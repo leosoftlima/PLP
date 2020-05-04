@@ -360,7 +360,7 @@ Ternario PTernario() :
 	Comando comandoElse;
 }
 {
-     <TER>
+   
 		expressao = PExpressao()
 	<HOOK>
 		comandoThen = PComando()
@@ -685,7 +685,8 @@ Comando PComandoSimples() :
       | retorno = PComandoDeclaracao()
       | retorno = PWhile()
       | retorno = PIfThenElse()
-      | retorno = PTernario()
+      | LOOKAHEAD(PExpressao())
+        retorno = PTernario()
       | retorno = PIO()
       | <LPAREN> retorno = PComando() <RPAREN>
       | retorno = PChamadaProcedimento()
