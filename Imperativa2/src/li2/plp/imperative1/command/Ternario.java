@@ -1,10 +1,7 @@
 package li2.plp.imperative1.command;
 
-import li2.plp.expressions2.expression.ExpNotEquals;
-import li2.plp.expressions2.expression.ExpRem;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.ValorBooleano;
-import li2.plp.expressions2.expression.ValorInteiro;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
@@ -58,7 +55,5 @@ public class Ternario implements Comando {
 		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eBooleano()
 				&& comandoInterrogacao.checaTipo(ambiente) && comandoDoisPontos.checaTipo(ambiente);
 	}
-
-
 
 }
