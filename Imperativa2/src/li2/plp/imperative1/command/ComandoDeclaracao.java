@@ -22,18 +22,17 @@ public class ComandoDeclaracao implements Comando {
 	/**
 	 * Declara a(s) vari�vel(is) e executa o comando.
 	 * 
-	 * @param ambiente
-	 *            o ambiente que contem o mapeamento entre identificadores e
-	 *            valores.
+	 * @param ambiente o ambiente que contem o mapeamento entre identificadores e
+	 *                 valores.
 	 * 
-	 * @return o ambiente modificado pela execu��o da declara��o e do comando.
-	 * @throws ErroTipoEntradaException 
+	 * @return o ambiente modificado pela execu��o da declara��o e do
+	 *         comando.
+	 * @throws ErroTipoEntradaException
 	 * 
 	 */
-	public AmbienteExecucaoImperativa executar(
-			AmbienteExecucaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException, ErroTipoEntradaException {
+	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException,
+			ErroTipoEntradaException {
 		ambiente.incrementa();
 		ambiente = comando.executar(declaracao.elabora(ambiente));
 		ambiente.restaura();
@@ -41,18 +40,25 @@ public class ComandoDeclaracao implements Comando {
 	}
 
 	/**
-	 * Verifica se o tipo do comando esta correto, levando em conta que o tipo
-	 * de uma variavel � o tipo do valor da sua primeira atribuicao.
+	 * Verifica se o tipo do comando esta correto, levando em conta que o tipo de
+	 * uma variavel � o tipo do valor da sua primeira atribuicao.
 	 */
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException {
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		boolean resposta;
 		ambiente.incrementa();
-		resposta = declaracao.checaTipo(ambiente)
-				&& comando.checaTipo(ambiente);
+		resposta = declaracao.checaTipo(ambiente) && comando.checaTipo(ambiente);
 		ambiente.restaura();
 		return resposta;
+	}
+
+	@Override
+	public AmbienteCompilacaoImperativa corrigir(AmbienteCompilacaoImperativa ambiente)
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+//		ambiente.incrementa();
+//
+//		ambiente.restaura();
+		return ambiente;
 	}
 
 }
