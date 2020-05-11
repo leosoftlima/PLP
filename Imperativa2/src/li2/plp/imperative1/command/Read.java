@@ -57,10 +57,9 @@ public class Read implements IO {
 	}
 
 	@Override
-	public AmbienteCompilacaoImperativa corrigir(AmbienteCompilacaoImperativa ambiente)
+	public Comando corrigir()
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		// TODO Auto-generated method stub
-		return ambiente;
+		return null;
 	}
-
 }

@@ -45,9 +45,10 @@ public class SequenciaComando implements Comando {
 	}
 
 	@Override
-	public AmbienteCompilacaoImperativa corrigir(AmbienteCompilacaoImperativa ambiente)
+	public Comando corrigir()
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		// TODO Auto-generated method stub
-		return ambiente;
+		this.comando1 = comando1.corrigir();
+		this.comando2 = comando2.corrigir();
+		return this;
 	}
 }

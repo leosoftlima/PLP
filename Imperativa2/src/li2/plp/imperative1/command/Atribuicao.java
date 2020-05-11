@@ -54,10 +54,9 @@ public class Atribuicao implements Comando {
 	}
 
 	@Override
-	public AmbienteCompilacaoImperativa corrigir(AmbienteCompilacaoImperativa ambiente)
+	public Comando corrigir()
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		// TODO Auto-generated method stub
-		return ambiente;
+		return this;
 	}
 
 }

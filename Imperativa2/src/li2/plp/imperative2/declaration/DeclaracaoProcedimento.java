@@ -42,7 +42,7 @@ public class DeclaracaoProcedimento extends Declaracao {
 		if (parametrosFormais.checaTipo(ambiente)) {
 			ambiente.incrementa();
 			ambiente = parametrosFormais.elabora(ambiente);
-			ambiente = getDefProcedimento().getComando().corrigir(ambiente);
+//			ambiente = getDefProcedimento().getComando().corrigir(ambiente);
 			resposta = getDefProcedimento().getComando().checaTipo(ambiente);
 			ambiente.restaura();
 		} else {
@@ -53,5 +53,13 @@ public class DeclaracaoProcedimento extends Declaracao {
 
 	private DefProcedimento getDefProcedimento() {
 		return this.defProcedimento;
+	}
+
+	@Override
+	public Declaracao corrigir()
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+		this.defProcedimento = new DefProcedimento(getDefProcedimento().getParametrosFormais(),
+				getDefProcedimento().getComando().corrigir());
+		return this;
 	}
 }

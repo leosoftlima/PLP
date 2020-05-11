@@ -16,9 +16,6 @@ import li2.plp.imperative1.memory.ErroTipoEntradaException;
 
 public interface Comando {
 
-	AmbienteCompilacaoImperativa corrigir(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException;
-
 	/**
 	 * Executa este comando.
 	 * 
@@ -41,6 +38,9 @@ public interface Comando {
 	 *         caso contrario.
 	 */
 	boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException;
+
+	Comando corrigir()
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException;
 
 }

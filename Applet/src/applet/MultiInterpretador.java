@@ -64,11 +64,9 @@ public class MultiInterpretador {
 		messageBoard = textAreaMensagens;
 	}
 
-	public void interpretarCodigo(String sourceCode, String listaEntrada,
-			int selectedIndex) {
+	public void interpretarCodigo(String sourceCode, String listaEntrada, int selectedIndex) {
 		try {
-			ByteArrayInputStream fis = new ByteArrayInputStream(sourceCode
-					.getBytes());
+			ByteArrayInputStream fis = new ByteArrayInputStream(sourceCode.getBytes());
 
 			switch (selectedIndex) {
 			case EXP1:
@@ -186,8 +184,7 @@ public class MultiInterpretador {
 		messageBoard.append("resultado = " + prog.executar().toString());
 	}
 
-	private void interpretarImp1(InputStream fis, String entradaStr)
-			throws Exception {
+	private void interpretarImp1(InputStream fis, String entradaStr) throws Exception {
 		li1.plp.imperative1.Programa prog;
 		if (imp1Parser == null) {
 			imp1Parser = new Imp1Parser(fis);
@@ -199,16 +196,13 @@ public class MultiInterpretador {
 		messageBoard.setText("sintaxe verificada com sucesso!\n");
 		li1.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp1(entradaStr);
 		if (prog.checaTipo(new ContextoCompilacaoImperativa(entrada))) {
-			messageBoard.append("resultado = "
-					+ prog.executar(new ContextoExecucaoImperativa(entrada))
-							.toString());
+			messageBoard.append("resultado = " + prog.executar(new ContextoExecucaoImperativa(entrada)).toString());
 		} else {
 			messageBoard.append("erro de tipos!");
 		}
 	}
 
-	private void interpretarImp2(InputStream fis, String entradaStr)
-			throws Exception {
+	private void interpretarImp2(InputStream fis, String entradaStr) throws Exception {
 		li2.plp.imperative2.Programa prog;
 		if (imp2Parser == null) {
 			imp2Parser = new Imp2Parser(fis);
@@ -221,16 +215,15 @@ public class MultiInterpretador {
 		messageBoard.setText("sintaxe verificada com sucesso!\n");
 		li2.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp2(entradaStr);
 		if (prog.checaTipo(new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada))) {
-			messageBoard.append("resultado = "
-					+ prog.executar(new li2.plp.imperative2.memory.ContextoExecucaoImperativa2(entrada))
-							.toString());
+			prog.corrigir();
+			ContextoExecucaoImperativa2 contexto = new ContextoExecucaoImperativa2(entrada);
+			messageBoard.append("resultado = " + prog.executar(contexto).toString());
 		} else {
 			messageBoard.append("erro de tipos!");
 		}
 	}
 
-	private void interpretarOO1(InputStream fis, String entradaStr)
-			throws Exception {
+	private void interpretarOO1(InputStream fis, String entradaStr) throws Exception {
 		loo1.plp.orientadaObjetos1.Programa prog;
 		if (oo1Parser == null) {
 			this.oo1Parser = new OO1Parser(fis);
@@ -241,20 +234,14 @@ public class MultiInterpretador {
 
 		messageBoard.setText("sintaxe verificada com sucesso!\n");
 		loo1.plp.orientadaObjetos1.memoria.colecao.ListaValor entrada = obterListaEntradaOO1(entradaStr);
-		if (prog
-				.checaTipo(new loo1.plp.orientadaObjetos1.memoria.ContextoCompilacaoOO1(
-						entrada))) {
-			messageBoard
-					.append("resultado = "
-							+ prog
-									.executar(
-											new loo1.plp.orientadaObjetos1.memoria.ContextoExecucaoOO1(
-													entrada)).toString());
+		if (prog.checaTipo(new loo1.plp.orientadaObjetos1.memoria.ContextoCompilacaoOO1(entrada))) {
+			messageBoard.append("resultado = "
+					+ prog.executar(new loo1.plp.orientadaObjetos1.memoria.ContextoExecucaoOO1(entrada)).toString());
 		} else {
 			messageBoard.append("erro de tipos!");
 		}
 	}
-	
+
 	private void interpretarOO2(InputStream fis, String entradaStr) throws Exception {
 		loo2.plp.orientadaObjetos2.Programa prog;
 		if (oo2Parser == null) {
@@ -266,13 +253,9 @@ public class MultiInterpretador {
 
 		messageBoard.setText("sintaxe verificada com sucesso!\n");
 		loo2.plp.orientadaObjetos1.memoria.colecao.ListaValor entrada = obterListaEntradaOO2(entradaStr);
-		if (prog.checaTipo(new loo2.plp.orientadaObjetos2.memoria.ContextoCompilacaoOO2(
-				entrada))) {
-			messageBoard
-					.append("resultado = "
-							+ prog.executar(
-									new loo2.plp.orientadaObjetos2.memoria.ContextoExecucaoOO2(
-											entrada)).toString());
+		if (prog.checaTipo(new loo2.plp.orientadaObjetos2.memoria.ContextoCompilacaoOO2(entrada))) {
+			messageBoard.append("resultado = "
+					+ prog.executar(new loo2.plp.orientadaObjetos2.memoria.ContextoExecucaoOO2(entrada)).toString());
 		} else {
 			messageBoard.append("erro de tipos!");
 		}
@@ -287,7 +270,7 @@ public class MultiInterpretador {
 
 		while (parser.hasMoreTokens()) {
 			String parametro = parser.nextToken();
-			
+
 			try {
 				Integer inteiro = Integer.valueOf(parametro);
 				valores.add(new li1.plp.expressions2.expression.ValorInteiro(inteiro.intValue()));
@@ -296,8 +279,7 @@ public class MultiInterpretador {
 
 			}
 
-			if (parametro.equalsIgnoreCase("true")
-					|| parametro.equalsIgnoreCase("false")) {
+			if (parametro.equalsIgnoreCase("true") || parametro.equalsIgnoreCase("false")) {
 				Boolean booleano = Boolean.valueOf(parametro);
 				valores.add(new li1.plp.expressions2.expression.ValorBooleano(booleano.booleanValue()));
 			} else {
@@ -307,7 +289,7 @@ public class MultiInterpretador {
 		entrada = Imp1Parser.criaListaValor(valores);
 		return entrada;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private li2.plp.imperative1.memory.ListaValor obterListaEntradaImp2(String texto) {
 		@SuppressWarnings("rawtypes")
@@ -317,7 +299,7 @@ public class MultiInterpretador {
 
 		while (parser.hasMoreTokens()) {
 			String parametro = parser.nextToken();
-			
+
 			try {
 				Integer inteiro = Integer.valueOf(parametro);
 				valores.add(new li1.plp.expressions2.expression.ValorInteiro(inteiro.intValue()));
@@ -326,8 +308,7 @@ public class MultiInterpretador {
 
 			}
 
-			if (parametro.equalsIgnoreCase("true")
-					|| parametro.equalsIgnoreCase("false")) {
+			if (parametro.equalsIgnoreCase("true") || parametro.equalsIgnoreCase("false")) {
 				Boolean booleano = Boolean.valueOf(parametro);
 				valores.add(new li2.plp.expressions2.expression.ValorBooleano(booleano.booleanValue()));
 			} else {
@@ -338,10 +319,8 @@ public class MultiInterpretador {
 		return entrada;
 	}
 
-
 	@SuppressWarnings("unchecked")
-	private loo1.plp.orientadaObjetos1.memoria.colecao.ListaValor obterListaEntradaOO1(
-			String texto) {
+	private loo1.plp.orientadaObjetos1.memoria.colecao.ListaValor obterListaEntradaOO1(String texto) {
 		List valores = new LinkedList<loo1.plp.expressions2.expression.ValorConcreto>();
 		loo1.plp.orientadaObjetos1.memoria.colecao.ListaValor entrada = new loo1.plp.orientadaObjetos1.memoria.colecao.ListaValor();
 		StringTokenizer parser = new StringTokenizer(texto);
@@ -351,24 +330,17 @@ public class MultiInterpretador {
 
 			try {
 				Integer inteiro = Integer.valueOf(parametro);
-				valores
-						.add(new loo2.plp.orientadaObjetos1.expressao.valor.ValorInteiro(
-								inteiro.intValue()));
+				valores.add(new loo2.plp.orientadaObjetos1.expressao.valor.ValorInteiro(inteiro.intValue()));
 				continue;
 			} catch (NumberFormatException e) {
 
 			}
 
-			if (parametro.equalsIgnoreCase("true")
-					|| parametro.equalsIgnoreCase("false")) {
+			if (parametro.equalsIgnoreCase("true") || parametro.equalsIgnoreCase("false")) {
 				Boolean booleano = Boolean.valueOf(parametro);
-				valores
-						.add(new loo1.plp.orientadaObjetos1.expressao.valor.ValorBooleano(
-								booleano.booleanValue()));
+				valores.add(new loo1.plp.orientadaObjetos1.expressao.valor.ValorBooleano(booleano.booleanValue()));
 			} else {
-				valores
-						.add(new loo1.plp.orientadaObjetos1.expressao.valor.ValorString(
-								parametro));
+				valores.add(new loo1.plp.orientadaObjetos1.expressao.valor.ValorString(parametro));
 			}
 		}
 		entrada = OO1Parser.criaListaValor(valores);
@@ -376,8 +348,7 @@ public class MultiInterpretador {
 	}
 
 	@SuppressWarnings("unchecked")
-	private loo2.plp.orientadaObjetos1.memoria.colecao.ListaValor obterListaEntradaOO2(
-			String texto) {
+	private loo2.plp.orientadaObjetos1.memoria.colecao.ListaValor obterListaEntradaOO2(String texto) {
 		List valores = new LinkedList<loo2.plp.expressions2.expression.ValorConcreto>();
 		loo2.plp.orientadaObjetos1.memoria.colecao.ListaValor entrada = new loo2.plp.orientadaObjetos1.memoria.colecao.ListaValor();
 		StringTokenizer parser = new StringTokenizer(texto);
@@ -387,24 +358,17 @@ public class MultiInterpretador {
 
 			try {
 				Integer inteiro = Integer.valueOf(parametro);
-				valores
-						.add(new loo2.plp.orientadaObjetos1.expressao.valor.ValorInteiro(
-								inteiro.intValue()));
+				valores.add(new loo2.plp.orientadaObjetos1.expressao.valor.ValorInteiro(inteiro.intValue()));
 				continue;
 			} catch (NumberFormatException e) {
 
 			}
 
-			if (parametro.equalsIgnoreCase("true")
-					|| parametro.equalsIgnoreCase("false")) {
+			if (parametro.equalsIgnoreCase("true") || parametro.equalsIgnoreCase("false")) {
 				Boolean booleano = Boolean.valueOf(parametro);
-				valores
-						.add(new loo2.plp.orientadaObjetos1.expressao.valor.ValorBooleano(
-								booleano.booleanValue()));
+				valores.add(new loo2.plp.orientadaObjetos1.expressao.valor.ValorBooleano(booleano.booleanValue()));
 			} else {
-				valores
-						.add(new loo2.plp.orientadaObjetos1.expressao.valor.ValorString(
-								parametro));
+				valores.add(new loo2.plp.orientadaObjetos1.expressao.valor.ValorString(parametro));
 			}
 		}
 		entrada = OO2Parser.criaListaValor(valores);
