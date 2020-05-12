@@ -303,6 +303,17 @@ SequenciaComando PSequenciaComando() :
 	{return new SequenciaComando(c1, c2);}
 }
 
+Atomo PAtomo() :
+{
+  Atomo retorno;
+}
+{
+    (
+      retorno = PImplicitePredicate()
+    )
+  { return retorno; }
+}
+
 IO PIO() :
 {
 	IO retorno;
@@ -360,7 +371,7 @@ Ternario PTernario() :
 	Comando comandoElse;
 }
 {
- 		expressao = PExpressao()
+		expressao = PExpressao()
 	<HOOK>
 		comandoThen = PComando()
 	<COLON>
@@ -653,6 +664,22 @@ ExpRem PExpRem() :
 	{return new ExpRem(esq, dir);}
 }
 
+ImplicitePredicate PImplicitePredicate() :
+{
+	ExpRem expressao;
+	Comando comandoThen;
+	Comando comandoElse;
+}
+{
+	<IF>
+		expressao = PExpRem() 
+	<THEN>
+		comandoThen = PComando()
+	<ELSE>
+		comandoElse = PComando()
+	{return new ImplicitePredicate (expressao, comandoThen, comandoElse);}
+}
+
 Expressao PExpressao() :
 {
 	Expressao retorno;
@@ -683,8 +710,11 @@ Comando PComandoSimples() :
       | retorno = PAtribuicao()
       | retorno = PComandoDeclaracao()
       | retorno = PWhile()
+      | LOOKAHEAD(2)
+      	retorno = PAtomo()  
       | retorno = PIfThenElse()
-      | retorno = PTernario()
+      | LOOKAHEAD(PExpressao())
+        retorno = PTernario()
       | retorno = PIO()
       | <LPAREN> retorno = PComando() <RPAREN>
       | retorno = PChamadaProcedimento()

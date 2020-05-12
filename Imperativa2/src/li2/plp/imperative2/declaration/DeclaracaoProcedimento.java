@@ -21,12 +21,9 @@ public class DeclaracaoProcedimento extends Declaracao {
 	}
 
 	@Override
-	public AmbienteExecucaoImperativa elabora(
-			AmbienteExecucaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		((AmbienteExecucaoImperativa2) ambiente).mapProcedimento(getId(),
-				getDefProcedimento());
+	public AmbienteExecucaoImperativa elabora(AmbienteExecucaoImperativa ambiente)
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+		((AmbienteExecucaoImperativa2) ambiente).mapProcedimento(getId(), getDefProcedimento());
 		return ambiente;
 	}
 
@@ -36,17 +33,16 @@ public class DeclaracaoProcedimento extends Declaracao {
 
 	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException {
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		boolean resposta;
 
 		ambiente.map(id, defProcedimento.getTipo());
 
-		ListaDeclaracaoParametro parametrosFormais = getDefProcedimento()
-				.getParametrosFormais();
+		ListaDeclaracaoParametro parametrosFormais = getDefProcedimento().getParametrosFormais();
 		if (parametrosFormais.checaTipo(ambiente)) {
 			ambiente.incrementa();
 			ambiente = parametrosFormais.elabora(ambiente);
+//			ambiente = getDefProcedimento().getComando().corrigir(ambiente);
 			resposta = getDefProcedimento().getComando().checaTipo(ambiente);
 			ambiente.restaura();
 		} else {
@@ -57,5 +53,13 @@ public class DeclaracaoProcedimento extends Declaracao {
 
 	private DefProcedimento getDefProcedimento() {
 		return this.defProcedimento;
+	}
+
+	@Override
+	public Declaracao corrigir()
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+		this.defProcedimento = new DefProcedimento(getDefProcedimento().getParametrosFormais(),
+				getDefProcedimento().getComando().corrigir());
+		return this;
 	}
 }

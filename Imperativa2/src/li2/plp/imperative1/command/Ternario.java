@@ -60,4 +60,12 @@ public class Ternario implements Comando {
 		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eBooleano()
 				&& comandoInterrogacao.checaTipo(ambiente) && comandoDoisPontos.checaTipo(ambiente);
 	}
+
+
+	@Override
+	public Comando corrigir()
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

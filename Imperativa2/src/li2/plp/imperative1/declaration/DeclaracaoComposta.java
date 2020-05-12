@@ -18,18 +18,22 @@ public class DeclaracaoComposta extends Declaracao {
 	}
 
 	@Override
-	public AmbienteExecucaoImperativa elabora(
-			AmbienteExecucaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException {
+	public AmbienteExecucaoImperativa elabora(AmbienteExecucaoImperativa ambiente)
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		return declaracao2.elabora(declaracao1.elabora(ambiente));
 	}
 
 	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return declaracao1.checaTipo(ambiente)
-				&& declaracao2.checaTipo(ambiente);
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+		return declaracao1.checaTipo(ambiente) && declaracao2.checaTipo(ambiente);
+	}
+
+	@Override
+	public Declaracao corrigir()
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+		this.declaracao1 = declaracao1.corrigir();
+		this.declaracao2 = declaracao2.corrigir();
+		return this;
 	}
 }

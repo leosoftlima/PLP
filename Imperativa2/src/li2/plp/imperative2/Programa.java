@@ -20,19 +20,16 @@ public class Programa {
 	/**
 	 * Executa o programa.
 	 * 
-	 * @param ambiente
-	 *            o ambiente de execu��o.
+	 * @param ambiente o ambiente de execu��o.
 	 * 
 	 * @return o ambiente depois de modificado pela execu��o do programa.
-	 * @throws ErroTipoEntradaException 
+	 * @throws ErroTipoEntradaException
 	 * 
-	 * @exception EntradaNaoFornecidaException
-	 *                se n�o for fornecida a tail de valores de entrada do
-	 *                programa.
+	 * @exception EntradaNaoFornecidaException se n�o for fornecida a tail de
+	 *                                         valores de entrada do programa.
 	 * 
 	 */
-	public ListaValor executar(AmbienteExecucaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
+	public ListaValor executar(AmbienteExecucaoImperativa ambiente) throws IdentificadorJaDeclaradoException,
 			IdentificadorNaoDeclaradoException, EntradaVaziaException, ErroTipoEntradaException {
 		ambiente = comando.executar(ambiente);
 		return ambiente.getSaida();
@@ -41,20 +38,22 @@ public class Programa {
 	/**
 	 * Realiza a verificacao de tipos do programa
 	 * 
-	 * @param ambiente
-	 *            o ambiente de compila��o.
-	 * @return <code>true</code> se o programa est� bem tipado;
-	 *         <code>false</code> caso contrario.
+	 * @param ambiente o ambiente de compila��o.
+	 * @return <code>true</code> se o programa est� bem tipado; <code>false</code>
+	 *         caso contrario.
 	 * 
-	 * @exception EntradaNaoFornecidaException
-	 *                se n�o for fornecida a tail de valores de entrada do
-	 *                programa.
+	 * @exception EntradaNaoFornecidaException se n�o for fornecida a tail de
+	 *                                         valores de entrada do programa.
 	 * 
 	 */
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException {
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		return comando.checaTipo(ambiente);
+	}
+
+	public void corrigir()
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+		comando.corrigir();
 	}
 
 }
