@@ -360,7 +360,8 @@ Ternario PTernario() :
 	Comando comandoElse;
 }
 {
- 		expressao = PExpressao()
+     <TER>
+		expressao = PExpressao()
 	<HOOK>
 		comandoThen = PComando()
 	<COLON>
