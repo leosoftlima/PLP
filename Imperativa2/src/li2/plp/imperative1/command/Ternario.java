@@ -55,21 +55,9 @@ public class Ternario implements Comando {
 	 *         <code>false</code> caso contrario.
 	 */
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-<<<<<<< HEAD
+
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eBooleano()
 				&& comandoInterrogacao.checaTipo(ambiente) && comandoDoisPontos.checaTipo(ambiente);
 	}
-
 }
-=======
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return expressao.checaTipo(ambiente)
-				&& expressao.getTipo(ambiente).eBooleano()
-				&& comandoInterrogacao.checaTipo(ambiente)
-				&& comandoDoisPontos.checaTipo(ambiente);
-	}
-
-}
->>>>>>> parent of d806c29... ajuste no ternario para remoção do token 'ter'
