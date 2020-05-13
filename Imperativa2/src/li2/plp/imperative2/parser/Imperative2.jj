@@ -367,16 +367,16 @@ IfThenElse PIfThenElse() :
 Ternario PTernario() :
 {
 	Expressao expressao;
-	Comando comandoThen;
-	Comando comandoElse;
+	Expressao expressaoInterrogacao;
+	Expressao expressaoDoisPontos;
 }
 {
-		expressao = PExpressao()
+		expressao = PExpCondicional()
 	<HOOK>
-		comandoThen = PComando()
+		expressaoInterrogacao = PExpressao()
 	<COLON>
-		comandoElse = PComando()
-	{return new Ternario (expressao, comandoThen, comandoElse);}
+		expressaoDoisPontos = PExpressao()
+	{return new Ternario (expressao, expressaoInterrogacao, expressaoDoisPontos);}
 }
 
 While PWhile() :
@@ -537,6 +537,25 @@ Expressao PExpUnaria() :
 		return retorno;
 	}
 }
+Expressao PExpCondicional() :
+{
+ Expressao retorno; 
+}
+{
+		 LOOKAHEAD (PExpPrimaria() <AND>)
+			retorno = PExpAnd()
+		| LOOKAHEAD (PExpPrimaria() <OR>)
+			retorno = PExpOr()
+		| LOOKAHEAD (PExpPrimaria() <EQ>)
+			retorno = PExpEquals()
+		| LOOKAHEAD (PExpPrimaria() <NE>)
+			retorno = PExpNotEquals()
+		| LOOKAHEAD (PExpPrimaria() <REM>)
+			retorno = PExpRem()
+	{
+		return retorno;
+	}
+}
 
 Expressao PExpBinaria() :
 {
@@ -680,6 +699,23 @@ ImplicitePredicate PImplicitePredicate() :
 	{return new ImplicitePredicate (expressao, comandoThen, comandoElse);}
 }
 
+ConditionalOperator PConditionalOperator() :
+{
+	Expressao expressao;
+	Expressao expressaoInterrogacao;
+	Expressao expressaoDoisPontos;
+}
+{
+
+		expressao = PExpCondicional()
+	<HOOK>
+		expressaoInterrogacao = PExpressao()
+	<COLON>
+		expressaoDoisPontos = PExpressao()
+
+    {return new ConditionalOperator (expressao, expressaoInterrogacao, expressaoDoisPontos);}
+}
+
 Expressao PExpressao() :
 {
 	Expressao retorno;
@@ -687,11 +723,12 @@ Expressao PExpressao() :
 {
 	(
 	    LOOKAHEAD (2) 
-	  		retorno = PExpUnaria()
+	  		retorno = PExpUnaria()	
 	  | LOOKAHEAD (PExpPrimaria() (<OR> | <AND> | <MINUS> | <PLUS> | <EQ> | < NE > | <CONCAT> | < REM >)) 
 	  		retorno = PExpBinaria()
-	  |
-	    retorno = PExpPrimaria()
+	  | LOOKAHEAD (PExpPrimaria() (<HOOK>))
+	      retorno = PTernario() 
+	  |   retorno = PExpPrimaria()
 	)
 	{
 		return retorno;
@@ -713,8 +750,6 @@ Comando PComandoSimples() :
       | LOOKAHEAD(2)
       	retorno = PAtomo()  
       | retorno = PIfThenElse()
-      | LOOKAHEAD(PExpressao())
-        retorno = PTernario()
       | retorno = PIO()
       | <LPAREN> retorno = PComando() <RPAREN>
       | retorno = PChamadaProcedimento()

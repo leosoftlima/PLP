@@ -1,71 +1,86 @@
 package li2.plp.imperative1.command;
 
+import li2.plp.expressions1.util.Tipo;
 import li2.plp.expressions2.expression.Expressao;
+import li2.plp.expressions2.expression.Valor;
 import li2.plp.expressions2.expression.ValorBooleano;
-import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
-import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
-import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
-import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
-import li2.plp.imperative1.memory.EntradaVaziaException;
-import li2.plp.imperative1.memory.ErroTipoEntradaException;
+import li2.plp.expressions2.memory.AmbienteCompilacao;
+import li2.plp.expressions2.memory.AmbienteExecucao;
+import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
+import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 
-public class Ternario implements Comando {
+public class Ternario implements Expressao {
 
 	private Expressao expressao;
 
-	private Comando comandoInterrogacao;
+	private Expressao expressaoInterrogacao;
 
-	private Comando comandoDoisPontos;
+	private Expressao expressaoDoisPontos;
+	
 
-	public Ternario(Expressao expressao, Comando comandoThen,
-			Comando comandoElse) {
+	public Ternario(Expressao expressao, Expressao expressaoInterrogacao, Expressao expressaoDoisPontos) {
 		this.expressao = expressao;
-		this.comandoInterrogacao = comandoThen;
-		this.comandoDoisPontos = comandoElse;
+		this.expressaoInterrogacao = expressaoInterrogacao;
+		this.expressaoDoisPontos = expressaoDoisPontos;
 	}
 
 	/**
-	 * Implementa o comando <code>expressao ? comando : comando</code>.
+	 * Implementa a expressao <code>expressao ? expressao : expressao</code>.
 	 * 
-	 * @param ambiente
-	 *            o ambiente de execu��o.
+	 * @param ambiente o ambiente de execu��o.
 	 * 
-	 * @return o ambiente depois de modificado pela execu��o do comando
-	 *         <code>expressao ? comando : comando</code>.
-	 * @throws ErroTipoEntradaException 
+	 * @return o ambiente depois de modificado pela execu��o do expressao
+	 *         <code>expressao ? expressao : expressao</code>.
+	 * @throws VariavelNaoDeclaradaException
 	 * 
 	 */
-	public AmbienteExecucaoImperativa executar(
-			AmbienteExecucaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException, ErroTipoEntradaException {
-		if (((ValorBooleano) expressao.avaliar(ambiente)).valor())
-			return comandoInterrogacao.executar(ambiente);
+
+	@Override
+	public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+		// TODO Auto-generated method stub
+		if (((ValorBooleano) expressao.avaliar(amb)).valor())
+			return expressaoInterrogacao.avaliar(amb);
 		else
-			return comandoDoisPontos.executar(ambiente);
+			return expressaoDoisPontos.avaliar(amb);
 	}
 
 	/**
-	 * Realiza a verificacao de tipos da express�o e dos comandos do comando
-	 * <code>expressao ? comando : comando</code>
+	 * Realiza a verificacao de tipos da express�o e dos expressao do expressao
+	 * <code>expressao ? expressao : expressao</code>
 	 * 
-	 * @param ambiente
-	 *            o ambiente de compila��o.
-	 * @return <code>true</code> se a express�o e os comando s�o bem tipados;
+	 * @param ambiente o ambiente de compila��o.
+	 * @return <code>true</code> se a express�o e os expressao s�o bem tipados;
 	 *         <code>false</code> caso contrario.
 	 */
-	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eBooleano()
-				&& comandoInterrogacao.checaTipo(ambiente) && comandoDoisPontos.checaTipo(ambiente);
+	
+	@Override
+	public boolean checaTipo(AmbienteCompilacao amb)
+			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+		// TODO Auto-generated method stub
+		return expressao.checaTipo(amb) && expressao.getTipo(amb).eBooleano()
+		&& expressaoInterrogacao.checaTipo(amb) && expressaoDoisPontos.checaTipo(amb);	
 	}
+
 
 
 	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+	public Tipo getTipo(AmbienteCompilacao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+		// TODO Auto-generated method stub
+		 if(expressaoInterrogacao.getTipo(amb).eIgual(expressaoDoisPontos.getTipo(amb)))
+		     return expressaoInterrogacao.getTipo(amb);
+		return expressaoInterrogacao.getTipo(amb);
+	}
+
+	@Override
+	public Expressao reduzir(AmbienteExecucao ambiente) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Expressao clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
