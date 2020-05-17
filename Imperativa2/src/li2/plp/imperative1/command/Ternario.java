@@ -62,10 +62,12 @@ public class Ternario implements Comando {
 	}
 
 
+
 	@Override
 	public Comando corrigir()
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

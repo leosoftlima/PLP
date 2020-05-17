@@ -21,7 +21,6 @@ import li1.plp.imperative1.memory.ContextoCompilacaoImperativa;
 import li1.plp.imperative1.memory.ContextoExecucaoImperativa;
 //import li1.plp.imperative1.memory.ListaValor;
 import li1.plp.imperative1.parser.Imp1Parser;
-import li2.plp.imperative2.memory.ContextoExecucaoImperativa2;
 import li2.plp.imperative2.parser.Imp2Parser;
 //import loo1.plp.orientadaObjetos1.expressao.valor.ValorConcreto;
 import loo1.plp.orientadaObjetos1.parser.OO1Parser;
@@ -215,9 +214,8 @@ public class MultiInterpretador {
 		messageBoard.setText("sintaxe verificada com sucesso!\n");
 		li2.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp2(entradaStr);
 		if (prog.checaTipo(new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada))) {
-			prog.corrigir();
-			ContextoExecucaoImperativa2 contexto = new ContextoExecucaoImperativa2(entrada);
-			messageBoard.append("resultado = " + prog.executar(contexto).toString());
+			messageBoard.append("resultado = "
+					+ prog.executar(new li2.plp.imperative2.memory.ContextoExecucaoImperativa2(entrada)).toString());
 		} else {
 			messageBoard.append("erro de tipos!");
 		}

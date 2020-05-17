@@ -53,12 +53,4 @@ public class DeclaracaoProcedimento extends Declaracao {
 	private DefProcedimento getDefProcedimento() {
 		return this.defProcedimento;
 	}
-
-	@Override
-	public Declaracao corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		this.defProcedimento = new DefProcedimento(getDefProcedimento().getParametrosFormais(),
-				getDefProcedimento().getComando().corrigir());
-		return this;
-	}
 }

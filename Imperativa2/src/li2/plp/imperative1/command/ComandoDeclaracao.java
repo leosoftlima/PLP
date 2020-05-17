@@ -51,20 +51,4 @@ public class ComandoDeclaracao implements Comando {
 		ambiente.restaura();
 		return resposta;
 	}
-
-	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		this.declaracao = declaracao.corrigir();
-		return comando.corrigir();
-	}
-
-//	@Override
-//	public AmbienteExecucaoImperativa corrigir(AmbienteExecucaoImperativa ambiente)
-//			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-//		ambiente.incrementa();
-//		ambiente = comando.corrigir(declaracao.elabora(ambiente));
-//		ambiente.restaura();
-//		return ambiente;
-//	}
 }
