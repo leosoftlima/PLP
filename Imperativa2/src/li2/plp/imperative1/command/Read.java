@@ -2,8 +2,6 @@ package li2.plp.imperative1.command;
 
 import li2.plp.expressions2.expression.Id;
 import li2.plp.expressions2.expression.Valor;
-import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
-import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
@@ -54,12 +52,5 @@ public class Read implements IO {
 			throws VariavelNaoDeclaradaException, EntradaVaziaException, VariavelJaDeclaradaException {
 		// return id.getTipo(ambiente).equals(ambiente.getTipoEntrada());
 		return true;
-	}
-
-	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

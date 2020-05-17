@@ -63,9 +63,4 @@ public class DeclaracaoVariavel extends Declaracao {
 		}
 		return result;
 	}
-
-	@Override
-	public Declaracao corrigir() {
-		return this;
-	}
 }

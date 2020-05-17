@@ -82,10 +82,4 @@ public class ChamadaProcedimento implements Comando {
 		return tipoProcedimento.eIgual(tipoParametrosReais);
 
 	}
-
-	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return this;
-	}
 }

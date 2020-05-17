@@ -2,13 +2,10 @@ package li2.plp.imperative1.command;
 
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
-import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
-import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
-import li2.plp.imperative1.memory.EntradaVaziaException;
 
 public class AtribuicaoSimples implements Atribuicao {
 
@@ -51,12 +48,6 @@ public class AtribuicaoSimples implements Atribuicao {
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		return expressao.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(expressao.getTipo(ambiente));
-	}
-
-	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return this;
 	}
 
 	@Override

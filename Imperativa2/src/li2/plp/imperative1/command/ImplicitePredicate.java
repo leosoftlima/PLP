@@ -35,10 +35,4 @@ public class ImplicitePredicate implements Comando {
 		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eInteiro()
 				&& comandoThen.checaTipo(ambiente) && comandoElse.checaTipo(ambiente);
 	}
-
-	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return new IfThenElse(new ExpNotEquals(expressao, new ValorInteiro(0)), comandoThen, comandoElse);
-	}
 }

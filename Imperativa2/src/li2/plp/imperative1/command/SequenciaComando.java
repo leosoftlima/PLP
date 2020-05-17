@@ -43,12 +43,4 @@ public class SequenciaComando implements Comando {
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		return comando1.checaTipo(ambiente) && comando2.checaTipo(ambiente);
 	}
-
-	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		this.comando1 = comando1.corrigir();
-		this.comando2 = comando2.corrigir();
-		return this;
-	}
 }

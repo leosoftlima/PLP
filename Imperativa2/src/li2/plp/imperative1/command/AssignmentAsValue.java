@@ -33,13 +33,6 @@ public class AssignmentAsValue implements Atribuicao {
 	}
 
 	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-//		return new SequenciaComando(this.atribuicao, new AtribuicaoSimples(this.id, this.atribuicao.getExpressao()));
-		return null;
-	}
-
-	@Override
 	public Id getId() {
 		return atribuicao.getId();
 	}
