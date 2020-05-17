@@ -77,10 +77,15 @@ public class Ternario implements Expressao {
 		return null;
 	}
 
+
 	@Override
 	public Expressao clone() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8caaa3367d35cf8d3d91956d65ac12fdef88fd1a

@@ -2,7 +2,6 @@ package li2.plp.imperative1.command;
 
 import li2.plp.expressions2.expression.ExpNotEquals;
 import li2.plp.expressions2.expression.Expressao;
-import li2.plp.expressions2.expression.ValorBooleano;
 import li2.plp.expressions2.expression.ValorInteiro;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
@@ -11,7 +10,7 @@ import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 
-public class ImplicitePredicate implements Atomo {
+public class ImplicitePredicate implements Comando {
 	private Expressao expressao;
 
 	private Comando comandoThen;
@@ -27,21 +26,13 @@ public class ImplicitePredicate implements Atomo {
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException,
 			ErroTipoEntradaException {
-		if (((ValorBooleano) expressao.avaliar(ambiente)).valor())
-			return comandoThen.executar(ambiente);
-		else
-			return comandoElse.executar(ambiente);
+		return new IfThenElse(new ExpNotEquals(expressao, new ValorInteiro(0)), comandoThen, comandoElse)
+				.executar(ambiente);
 	}
 
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eInteiro()
 				&& comandoThen.checaTipo(ambiente) && comandoElse.checaTipo(ambiente);
-	}
-
-	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return new IfThenElse(new ExpNotEquals(expressao, new ValorInteiro(0)), comandoThen, comandoElse);
 	}
 }

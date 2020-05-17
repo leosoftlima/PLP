@@ -1,5 +1,6 @@
 package li2.plp.imperative1.command;
 
+import li2.plp.expressions2.expression.Id;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
@@ -7,40 +8,33 @@ import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 
-public class SequenciaComando implements Comando {
+public class AssignmentAsValue implements Atribuicao {
+	private Id id;
+	private Atribuicao atribuicao;
 
-	private Comando comando1;
-	private Comando comando2;
-
-	public SequenciaComando(Comando comando1, Comando comando2) {
-		this.comando1 = comando1;
-		this.comando2 = comando2;
+	public AssignmentAsValue(Id id, Atribuicao atribuicao) {
+		this.id = id;
+		this.atribuicao = atribuicao;
 	}
 
-	/**
-	 * Executa os comandos sequencialmente.
-	 * 
-	 * @param ambiente o ambiente de execu��o.
-	 * 
-	 * @return o ambiente depois de modificado pela execu��o dos comandos.
-	 * @throws ErroTipoEntradaException
-	 * 
-	 */
+	@Override
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException,
 			ErroTipoEntradaException {
-		return comando2.executar(comando1.executar(ambiente));
+		ambiente = atribuicao.executar(ambiente);
+		ambiente.changeValor(id, ambiente.get(atribuicao.getId()));
+		return ambiente;
 	}
 
-	/**
-	 * Realiza a verificacao de tipos dos comandos
-	 * 
-	 * @param ambiente o ambiente de compila��o.
-	 * @return <code>true</code> se os comandos s�o bem tipados;
-	 *         <code>false</code> caso contrario.
-	 */
+	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return comando1.checaTipo(ambiente) && comando2.checaTipo(ambiente);
+		return atribuicao.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(atribuicao.getId().getTipo(ambiente));
 	}
+
+	@Override
+	public Id getId() {
+		return atribuicao.getId();
+	}
+
 }

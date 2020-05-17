@@ -13,7 +13,4 @@ public abstract class Declaracao {
 
 	public abstract boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException;
-
-	public abstract Declaracao corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException;
 }

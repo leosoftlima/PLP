@@ -1,9 +1,12 @@
-{ 
-   var a  =  1 ,
-   proc incA (int z)  {
-     a := a + z
-   };
-   call incA(3);
-   call incA(5);
-   write(a)
+{
+    var x = 0,
+    var y = 1,
+    var z = 2,
+    proc example(){
+    	if  z % 2 then x := y := z := 7 else x := y := 6
+    };
+    call example();
+    write(x);
+    write(y);
+    write(z)
 }

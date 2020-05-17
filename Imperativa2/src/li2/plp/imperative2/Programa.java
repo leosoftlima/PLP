@@ -51,9 +51,4 @@ public class Programa {
 		return comando.checaTipo(ambiente);
 	}
 
-	public void corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		comando.corrigir();
-	}
-
 }
