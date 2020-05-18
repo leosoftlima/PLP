@@ -838,8 +838,6 @@ Comando PComandoSimples() :
   | retorno = PComandoDeclaracao()
   | retorno = PWhile()
   | retorno = PIfThenElse()
-  | LOOKAHEAD(PExpressao())
-    retorno = PTernario()
   | retorno = PIO()
   | < LPAREN > retorno = PComando() < RPAREN >
   | retorno = PChamadaProcedimento()
