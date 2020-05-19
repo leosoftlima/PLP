@@ -1,6 +1,6 @@
 package li2.plp.imperative1.command;
 
-import li2.plp.expressions2.expression.Expressao;
+import li2.plp.expressions2.expression.Id;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
@@ -8,44 +8,32 @@ import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 
-public class ConditionalOperator implements Atomo {
-	
-	
-	private Expressao expressao;
+public class ConditionalOperator implements Atribuicao {
+	private Id id;
+	private Ternario ternario;
 
-	private Expressao expressaoInterrogacao;
-
-	private Expressao expressaoDoisPontos;
-	
-
-	public ConditionalOperator(Expressao expressao, Expressao expressaoInterrogacao, Expressao expressaoDoisPontos) {
-		this.expressao = expressao;
-		this.expressaoInterrogacao = expressaoInterrogacao;
-		this.expressaoDoisPontos = expressaoDoisPontos;
+	public ConditionalOperator(Id id, Ternario ternario) {
+		this.id = id;
+		this.ternario = ternario;
 	}
-
 
 	@Override
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException,
 			ErroTipoEntradaException {
-		// TODO Auto-generated method stub
-		return null;
+		ambiente.changeValor(id, ternario.avaliar(ambiente));
+		return ambiente;
 	}
 
 	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		// TODO Auto-generated method stub
-		return false;
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {	
+		return ternario.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(ternario.getTipo(ambiente));
 	}
 
 	@Override
-	public Comando corrigir()
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+	public Id getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
-	
-
 }

@@ -24,6 +24,10 @@ public class Ternario implements Expressao {
 		this.expressaoDoisPontos = expressaoDoisPontos;
 	}
 
+	public Ternario() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Implementa a expressao <code>expressao ? expressao : expressao</code>.
 	 * 
@@ -84,8 +88,7 @@ public class Ternario implements Expressao {
 		return null;
 	}
 
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 8caaa3367d35cf8d3d91956d65ac12fdef88fd1a
+
+

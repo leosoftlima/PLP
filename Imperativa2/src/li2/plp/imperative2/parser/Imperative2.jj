@@ -457,6 +457,8 @@ Atribuicao PAtribuicao() :
   (
     LOOKAHEAD(PId() < ATTRIB > PAtribuicao())
     retorno = PAssignmentAsValue()
+  | LOOKAHEAD(PId() < ATTRIB > PTernario())
+    retorno = PConditionalOperator()
   | retorno = PAtribuicaoSimples()
   )
   {
@@ -473,6 +475,18 @@ AssignmentAsValue PAssignmentAsValue() :
   id = PId() < ATTRIB > atribuicao = PAtribuicao() 
   {
     return new AssignmentAsValue(id, atribuicao);
+  }
+}
+
+ConditionalOperator PConditionalOperator() :
+{
+  Id id;
+  Ternario ternario;
+}
+{
+  id = PId() < ATTRIB > ternario = PTernario() 
+  {
+    return new ConditionalOperator(id, ternario);
   }
 }
 
