@@ -410,17 +410,17 @@ IfThenElse PIfThenElse() :
 Ternario PTernario() :
 {
   Expressao expressao;
-  Comando comandoThen;
-  Comando comandoElse;
+  Expressao expressaoInterrogacao;
+  Expressao expressaoDoisPontos;
 }
 {
-  expressao = PExpressao() 
+  expressao = PExpCondicional() 
   < HOOK > 
-  comandoThen = PComando() 
+  expressaoInterrogacao = PExpressao() 
   < COLON > 
-  comandoElse = PComando()
+  expressaoDoisPontos = PExpressao()
   {
-    return new Ternario(expressao, comandoThen, comandoElse);
+    return new Ternario(expressao, expressaoInterrogacao, expressaoDoisPontos);
   }
 }
 
@@ -457,6 +457,8 @@ Atribuicao PAtribuicao() :
   (
     LOOKAHEAD(PId() < ATTRIB > PAtribuicao())
     retorno = PAssignmentAsValue()
+  | LOOKAHEAD(PId() < ATTRIB > PTernario())
+    retorno = PConditionalOperator()
   | retorno = PAtribuicaoSimples()
   )
   {
@@ -473,6 +475,18 @@ AssignmentAsValue PAssignmentAsValue() :
   id = PId() < ATTRIB > atribuicao = PAtribuicao() 
   {
     return new AssignmentAsValue(id, atribuicao);
+  }
+}
+
+ConditionalOperator PConditionalOperator() :
+{
+  Id id;
+  Ternario ternario;
+}
+{
+  id = PId() < ATTRIB > ternario = PTernario() 
+  {
+    return new ConditionalOperator(id, ternario);
   }
 }
 
@@ -617,6 +631,27 @@ Expressao PExpUnaria() :
   }
 }
 
+Expressao PExpCondicional() :
+{
+  Expressao retorno;
+}
+{
+(
+  LOOKAHEAD(PExpPrimaria() < AND >)
+  retorno = PExpAnd()
+| LOOKAHEAD(PExpPrimaria() < OR >)
+  retorno = PExpOr()
+| LOOKAHEAD(PExpPrimaria() < EQ >)
+  retorno = PExpEquals()
+| LOOKAHEAD(PExpPrimaria() < NE >)
+  retorno = PExpNotEquals()
+| LOOKAHEAD(PExpPrimaria() < REM >)
+  retorno = PExpRem()
+  )
+  {
+    return retorno;
+  }
+}
 Expressao PExpBinaria() :
 {
   Expressao retorno, param2;
@@ -783,6 +818,8 @@ Expressao PExpressao() :
   (
     LOOKAHEAD(2)
     retorno = PExpUnaria()
+  | LOOKAHEAD(5)
+    retorno = PTernario()
   | LOOKAHEAD(PExpPrimaria() (< OR >
   | < AND >
   | < MINUS >
@@ -792,8 +829,7 @@ Expressao PExpressao() :
   | < CONCAT >
   | < REM >))
     retorno = PExpBinaria()
-  | 
-    retorno = PExpPrimaria()
+  | retorno = PExpPrimaria()
   )
   {
     return retorno;
@@ -816,8 +852,6 @@ Comando PComandoSimples() :
   | retorno = PComandoDeclaracao()
   | retorno = PWhile()
   | retorno = PIfThenElse()
-  | LOOKAHEAD(PExpressao())
-    retorno = PTernario()
   | retorno = PIO()
   | < LPAREN > retorno = PComando() < RPAREN >
   | retorno = PChamadaProcedimento()
