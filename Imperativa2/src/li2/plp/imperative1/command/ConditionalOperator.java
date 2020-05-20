@@ -1,6 +1,8 @@
 package li2.plp.imperative1.command;
 
+import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
+import li2.plp.expressions2.expression.Ternario;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
@@ -21,19 +23,23 @@ public class ConditionalOperator implements Atribuicao {
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException,
 			ErroTipoEntradaException {
-		ambiente.changeValor(id, ternario.avaliar(ambiente));
-		return ambiente;
+		return null;
 	}
 
 	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {	
-		return ternario.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(ternario.getTipo(ambiente));
+			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+		return false;
 	}
 
 	@Override
-	public Id getId() {
-		// TODO Auto-generated method stub
-		return id;
+	public Comando corrigir() {
+		return new IfThenElse(getExpressao(), new AtribuicaoSimples(id, ternario.getExpressaoInterrogacao()),
+				new AtribuicaoSimples(id, ternario.getExpressaoDoisPontos()));
+	}
+
+	@Override
+	public Expressao getExpressao() {
+		return this.ternario;
 	}
 }

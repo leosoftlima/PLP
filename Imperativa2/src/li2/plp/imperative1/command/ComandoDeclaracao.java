@@ -51,4 +51,10 @@ public class ComandoDeclaracao implements Comando {
 		ambiente.restaura();
 		return resposta;
 	}
+
+	@Override
+	public Comando corrigir() {
+		this.declaracao = declaracao.corrigir();
+		return this.comando.corrigir();
+	}
 }

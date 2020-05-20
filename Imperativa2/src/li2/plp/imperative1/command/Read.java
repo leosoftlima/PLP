@@ -53,4 +53,9 @@ public class Read implements IO {
 		// return id.getTipo(ambiente).equals(ambiente.getTipoEntrada());
 		return true;
 	}
+
+	@Override
+	public Comando corrigir() {
+		return this;
+	}
 }

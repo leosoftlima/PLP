@@ -53,4 +53,11 @@ public class DeclaracaoProcedimento extends Declaracao {
 	private DefProcedimento getDefProcedimento() {
 		return this.defProcedimento;
 	}
+
+	@Override
+	public Declaracao corrigir() {
+		this.defProcedimento = new DefProcedimento(getDefProcedimento().getParametrosFormais(),
+				getDefProcedimento().getComando().corrigir());
+		return this;
+	}
 }
