@@ -1,0 +1,18 @@
+ {
+    var x= 4,
+    var y = 2,	
+    proc met(){
+	    y:= y++
+    };
+    call met();
+	write(y)
+}
+ {
+    var x= 4,
+    var y = 2,	
+    proc met(){
+	    y:= y++
+    };
+    call met();
+	write(y)
+}

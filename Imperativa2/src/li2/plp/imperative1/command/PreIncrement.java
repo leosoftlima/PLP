@@ -1,22 +1,28 @@
 package li2.plp.imperative1.command;
 
+import li2.plp.expressions2.expression.ExpNotEquals;
+import li2.plp.expressions2.expression.ExpSoma;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
-import li2.plp.expressions2.expression.Ternario;
+import li2.plp.expressions2.expression.ValorInteiro;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
+import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
+import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 
-public class ConditionalOperator implements Atribuicao {
-	private Id id;
-	private Ternario ternario;
+public class PreIncrement implements Atribuicao {
 
-	public ConditionalOperator(Id id, Ternario ternario) {
+	private Id id;
+
+	private Expressao expressao;
+
+	public PreIncrement(Id id, Expressao expressao) {
 		this.id = id;
-		this.ternario = ternario;
+		this.expressao = expressao;
 	}
 
 	@Override
@@ -28,18 +34,21 @@ public class ConditionalOperator implements Atribuicao {
 
 	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
-			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
+			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		return false;
 	}
 
+
 	@Override
 	public Comando corrigir() {
-		return new IfThenElse(getExpressao(), new AtribuicaoSimples(id, ternario.getExpressaoInterrogacao()),
-				new AtribuicaoSimples(id, ternario.getExpressaoDoisPontos())).corrigir();
+		return new SequenciaComando(new AtribuicaoSimples(id, new ExpSoma(expressao, new ValorInteiro(1))), 
+				                    new AtribuicaoSimples(new Id(getExpressao().toString()), new ExpSoma(expressao, new ValorInteiro(1)))).corrigir();
 	}
 
 	@Override
 	public Expressao getExpressao() {
-		return this.ternario.getExpressao();
+		// TODO Auto-generated method stub
+		return this.expressao;
 	}
+	
 }

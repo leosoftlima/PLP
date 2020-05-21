@@ -57,9 +57,7 @@ public class Ternario implements Expressao {
 
 	@Override
 	public Tipo getTipo(AmbienteCompilacao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		if (expressaoInterrogacao.getTipo(amb).eIgual(expressaoDoisPontos.getTipo(amb)))
-			return expressaoInterrogacao.getTipo(amb);
-		return expressaoInterrogacao.getTipo(amb);
+		return expressao.getTipo(amb);
 	}
 
 	@Override
@@ -82,5 +80,8 @@ public class Ternario implements Expressao {
 
 	public Expressao getExpressaoDoisPontos() {
 		return expressaoDoisPontos;
+	}
+	public Expressao getExpressao() {
+		return expressao;
 	}
 }
