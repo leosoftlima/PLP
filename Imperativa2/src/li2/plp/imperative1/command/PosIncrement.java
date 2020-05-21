@@ -28,14 +28,12 @@ public class PosIncrement implements Atribuicao {
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException,
 			ErroTipoEntradaException {
-		// TODO Auto-generated method stub
-		return ambiente;
+		return null;
 	}
 
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		return false;
-		//return expressao.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(expressao.getTipo(ambiente));
 	}
 
 	@Override
