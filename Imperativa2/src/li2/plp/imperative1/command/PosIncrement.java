@@ -43,7 +43,6 @@ public class PosIncrement implements Atribuicao {
 
 	@Override
 	public Expressao getExpressao() {
-		// TODO Auto-generated method stub
 		return this.expressao;
 	}
 
