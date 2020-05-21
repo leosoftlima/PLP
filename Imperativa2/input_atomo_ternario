@@ -6,3 +6,13 @@ var x= 1,
  call met();
  write(x)
  }
+ 
+ {
+    var x= "vvv",
+    var y = 2,
+    proc met(){
+        x:= y==2 ? x == "vvv" ? "SSS" : "CCC" : "ZZZ"
+    };
+    call met();
+    write(x)
+}
