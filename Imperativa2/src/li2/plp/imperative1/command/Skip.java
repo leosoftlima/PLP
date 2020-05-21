@@ -29,4 +29,9 @@ public class Skip implements Comando {
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente) {
 		return true;
 	}
+
+	@Override
+	public Comando corrigir() {
+		return this;
+	}
 }

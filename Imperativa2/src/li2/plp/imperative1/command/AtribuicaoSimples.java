@@ -51,8 +51,13 @@ public class AtribuicaoSimples implements Atribuicao {
 	}
 
 	@Override
-	public Id getId() {
-		return id;
+	public Comando corrigir() {
+		return this;
+	}
+
+	@Override
+	public Expressao getExpressao() {
+		return this.expressao;
 	}
 
 }

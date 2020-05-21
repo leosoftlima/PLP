@@ -51,4 +51,9 @@ public class While implements Comando {
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eBooleano() && comando.checaTipo(ambiente);
 	}
+
+	@Override
+	public Comando corrigir() {
+		return this;
+	}
 }

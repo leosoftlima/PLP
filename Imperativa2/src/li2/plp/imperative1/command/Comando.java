@@ -40,4 +40,6 @@ public interface Comando {
 	boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException;
 
+	Comando corrigir();
+
 }
