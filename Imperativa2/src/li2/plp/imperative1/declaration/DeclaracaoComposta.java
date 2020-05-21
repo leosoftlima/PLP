@@ -28,4 +28,11 @@ public class DeclaracaoComposta extends Declaracao {
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		return declaracao1.checaTipo(ambiente) && declaracao2.checaTipo(ambiente);
 	}
+
+	@Override
+	public Declaracao corrigir() {
+		this.declaracao1 = declaracao1.corrigir();
+		this.declaracao2 = declaracao2.corrigir();
+		return this;
+	}
 }

@@ -51,4 +51,8 @@ public class Programa {
 		return comando.checaTipo(ambiente);
 	}
 
+	public void corrigir() {
+		comando.corrigir();
+	}
+
 }

@@ -26,13 +26,18 @@ public class ImplicitePredicate implements Comando {
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException,
 			ErroTipoEntradaException {
-		return new IfThenElse(new ExpNotEquals(expressao, new ValorInteiro(0)), comandoThen, comandoElse)
-				.executar(ambiente);
+		return null;
 	}
 
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eInteiro()
-				&& comandoThen.checaTipo(ambiente) && comandoElse.checaTipo(ambiente);
+		return false;
+	}
+
+	@Override
+	public Comando corrigir() {
+		this.comandoThen = comandoThen.corrigir();
+		this.comandoElse = comandoElse.corrigir();
+		return new IfThenElse(new ExpNotEquals(expressao, new ValorInteiro(0)), comandoThen, comandoElse);
 	}
 }

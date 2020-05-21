@@ -41,4 +41,9 @@ public class Write implements IO {
 			throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException {
 		return expressao.checaTipo(ambiente);
 	}
+
+	@Override
+	public Comando corrigir() {
+		return this;
+	}
 }

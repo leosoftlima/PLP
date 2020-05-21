@@ -1,9 +1,6 @@
-package li2.plp.imperative1.command;
+package li2.plp.expressions2.expression;
 
 import li2.plp.expressions1.util.Tipo;
-import li2.plp.expressions2.expression.Expressao;
-import li2.plp.expressions2.expression.Valor;
-import li2.plp.expressions2.expression.ValorBooleano;
 import li2.plp.expressions2.memory.AmbienteCompilacao;
 import li2.plp.expressions2.memory.AmbienteExecucao;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
@@ -16,16 +13,11 @@ public class Ternario implements Expressao {
 	private Expressao expressaoInterrogacao;
 
 	private Expressao expressaoDoisPontos;
-	
 
 	public Ternario(Expressao expressao, Expressao expressaoInterrogacao, Expressao expressaoDoisPontos) {
 		this.expressao = expressao;
 		this.expressaoInterrogacao = expressaoInterrogacao;
 		this.expressaoDoisPontos = expressaoDoisPontos;
-	}
-
-	public Ternario() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -41,7 +33,6 @@ public class Ternario implements Expressao {
 
 	@Override
 	public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		// TODO Auto-generated method stub
 		if (((ValorBooleano) expressao.avaliar(amb)).valor())
 			return expressaoInterrogacao.avaliar(amb);
 		else
@@ -56,39 +47,40 @@ public class Ternario implements Expressao {
 	 * @return <code>true</code> se a express�o e os expressao s�o bem tipados;
 	 *         <code>false</code> caso contrario.
 	 */
-	
+
 	@Override
 	public boolean checaTipo(AmbienteCompilacao amb)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		// TODO Auto-generated method stub
-		return expressao.checaTipo(amb) && expressao.getTipo(amb).eBooleano()
-		&& expressaoInterrogacao.checaTipo(amb) && expressaoDoisPontos.checaTipo(amb);	
+		return expressao.checaTipo(amb) && expressao.getTipo(amb).eBooleano() && expressaoInterrogacao.checaTipo(amb)
+				&& expressaoDoisPontos.checaTipo(amb);
 	}
-
-
 
 	@Override
 	public Tipo getTipo(AmbienteCompilacao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		// TODO Auto-generated method stub
-		 if(expressaoInterrogacao.getTipo(amb).eIgual(expressaoDoisPontos.getTipo(amb)))
-		     return expressaoInterrogacao.getTipo(amb);
+		if (expressaoInterrogacao.getTipo(amb).eIgual(expressaoDoisPontos.getTipo(amb)))
+			return expressaoInterrogacao.getTipo(amb);
 		return expressaoInterrogacao.getTipo(amb);
 	}
 
 	@Override
 	public Expressao reduzir(AmbienteExecucao ambiente) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		this.expressao = expressao.reduzir(ambiente);
+		this.expressaoInterrogacao = expressaoInterrogacao.reduzir(ambiente);
+		this.expressaoDoisPontos = expressaoDoisPontos.reduzir(ambiente);
 
+		return this;
+	}
 
 	@Override
 	public Expressao clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Ternario(expressao.clone(), expressaoInterrogacao.clone(), expressaoDoisPontos.clone());
 	}
 
+	public Expressao getExpressaoInterrogacao() {
+		return expressaoInterrogacao;
+	}
 
+	public Expressao getExpressaoDoisPontos() {
+		return expressaoDoisPontos;
+	}
 }
-
-

@@ -82,4 +82,9 @@ public class ChamadaProcedimento implements Comando {
 		return tipoProcedimento.eIgual(tipoParametrosReais);
 
 	}
+
+	@Override
+	public Comando corrigir() {
+		return this;
+	}
 }

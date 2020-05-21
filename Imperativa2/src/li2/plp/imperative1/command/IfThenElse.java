@@ -55,4 +55,9 @@ public class IfThenElse implements Comando {
 		return expressao.checaTipo(ambiente) && expressao.getTipo(ambiente).eBooleano()
 				&& comandoThen.checaTipo(ambiente) && comandoElse.checaTipo(ambiente);
 	}
+
+	@Override
+	public Comando corrigir() {
+		return this;
+	}
 }
