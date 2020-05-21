@@ -34,12 +34,13 @@ public class PosIncrement implements Atribuicao {
 
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return expressao.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(expressao.getTipo(ambiente));
+		return false;
+		//return expressao.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(expressao.getTipo(ambiente));
 	}
 
 	@Override
 	public Comando corrigir() {
-		return new SequenciaComando(new AtribuicaoSimples(id, getExpressao() ), new AtribuicaoSimples(id,new ExpSoma(expressao, new ValorInteiro(1)))).corrigir();
+		return new SequenciaComando(new AtribuicaoSimples(id, getExpressao() ), new AtribuicaoSimples(new Id(getExpressao().toString()), new ExpSoma(expressao, new ValorInteiro(1)))).corrigir();
 	}
 
 	@Override

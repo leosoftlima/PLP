@@ -1,5 +1,6 @@
 package li2.plp.imperative1.command;
 
+import li2.plp.expressions2.expression.ExpNotEquals;
 import li2.plp.expressions2.expression.ExpSoma;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
@@ -34,13 +35,14 @@ public class PreIncrement implements Atribuicao {
 	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return expressao.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(expressao.getTipo(ambiente));
+		return false;
 	}
 
 
 	@Override
 	public Comando corrigir() {
-		return new SequenciaComando(new AtribuicaoSimples(id, new ExpSoma(expressao, new ValorInteiro(1))), new AtribuicaoSimples(id, getExpressao())).corrigir();
+		return new SequenciaComando(new AtribuicaoSimples(id, new ExpSoma(expressao, new ValorInteiro(1))), 
+				                    new AtribuicaoSimples(new Id(getExpressao().toString()), new ExpSoma(expressao, new ValorInteiro(1)))).corrigir();
 	}
 
 	@Override

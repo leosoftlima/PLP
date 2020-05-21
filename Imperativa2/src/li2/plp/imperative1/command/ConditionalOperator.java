@@ -29,7 +29,7 @@ public class ConditionalOperator implements Atribuicao {
 	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -40,6 +40,6 @@ public class ConditionalOperator implements Atribuicao {
 
 	@Override
 	public Expressao getExpressao() {
-		return this.ternario;
+		return this.ternario.getExpressao();
 	}
 }

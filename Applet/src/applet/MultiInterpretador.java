@@ -213,6 +213,7 @@ public class MultiInterpretador {
 
 		messageBoard.setText("sintaxe verificada com sucesso!\n");
 		li2.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp2(entradaStr);
+		prog.corrigir();
 		if (prog.checaTipo(new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada))) {
 			messageBoard.append("resultado = "
 					+ prog.executar(new li2.plp.imperative2.memory.ContextoExecucaoImperativa2(entrada)).toString());

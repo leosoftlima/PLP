@@ -31,7 +31,7 @@ public class ImplicitePredicate implements Comando {
 
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
-		return true;
+		return false;
 	}
 
 	@Override
