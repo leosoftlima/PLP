@@ -35,7 +35,7 @@ public class ConditionalOperator implements Atribuicao {
 	@Override
 	public Comando corrigir() {
 		return new IfThenElse(getExpressao(), new AtribuicaoSimples(id, ternario.getExpressaoInterrogacao()),
-				new AtribuicaoSimples(id, ternario.getExpressaoDoisPontos()));
+				new AtribuicaoSimples(id, ternario.getExpressaoDoisPontos())).corrigir();
 	}
 
 	@Override
