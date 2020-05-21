@@ -1,7 +1,9 @@
 package li2.plp.imperative1.command;
 
+import li2.plp.expressions2.expression.ExpSoma;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
+import li2.plp.expressions2.expression.ValorInteiro;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
@@ -26,8 +28,7 @@ public class PreIncrement implements Atribuicao {
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException,
 			ErroTipoEntradaException {
-		// TODO Auto-generated method stub
-		return ambiente;
+		return null;
 	}
 
 	@Override
@@ -35,10 +36,17 @@ public class PreIncrement implements Atribuicao {
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		return expressao.checaTipo(ambiente) && id.getTipo(ambiente).eIgual(expressao.getTipo(ambiente));
 	}
-    
+
+
 	@Override
-	public Id getId() {
-		return id;
+	public Comando corrigir() {
+		return new SequenciaComando(new AtribuicaoSimples(id, new ExpSoma(expressao, new ValorInteiro(1))), new AtribuicaoSimples(id, getExpressao())).corrigir();
+	}
+
+	@Override
+	public Expressao getExpressao() {
+		// TODO Auto-generated method stub
+		return this.expressao;
 	}
 	
 }

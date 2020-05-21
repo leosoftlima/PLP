@@ -1,7 +1,9 @@
 package li2.plp.imperative1.command;
 
+import li2.plp.expressions2.expression.ExpSoma;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
+import li2.plp.expressions2.expression.ValorInteiro;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
@@ -36,8 +38,14 @@ public class PosIncrement implements Atribuicao {
 	}
 
 	@Override
-	public Id getId() {
-		return id;
+	public Comando corrigir() {
+		return new SequenciaComando(new AtribuicaoSimples(id, getExpressao() ), new AtribuicaoSimples(id,new ExpSoma(expressao, new ValorInteiro(1)))).corrigir();
+	}
+
+	@Override
+	public Expressao getExpressao() {
+		// TODO Auto-generated method stub
+		return this.expressao;
 	}
 
 	

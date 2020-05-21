@@ -460,6 +460,10 @@ Atribuicao PAtribuicao() :
     retorno = PAssignmentAsValue()
   | LOOKAHEAD(PId() < ATTRIB > PTernario())
     retorno = PConditionalOperator()
+  | LOOKAHEAD(PPreIncrement() )
+    retorno = PPreIncrement()
+  | LOOKAHEAD(PPosIncrement() )
+    retorno = PPosIncrement()
   | retorno = PAtribuicaoSimples()
   )
   {
@@ -488,6 +492,30 @@ ConditionalOperator PConditionalOperator() :
   id = PId() < ATTRIB > ternario = PTernario() 
   {
     return new ConditionalOperator(id, ternario);
+  }
+}
+
+PreIncrement PPreIncrement() :
+{
+  Id id;
+  Expressao exp;
+}
+{
+  id = PId() < ATTRIB > <CONCAT>  exp = PExpressao()
+  {
+    return new PreIncrement(id, exp);
+  }
+}
+
+PosIncrement PPosIncrement() :
+{
+  Id id;
+  Expressao exp;
+}
+{
+  id = PId() < ATTRIB >  exp = PExpPrimaria() <CONCAT> 
+  {
+    return new PosIncrement(id, exp);
   }
 }
 
