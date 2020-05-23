@@ -462,8 +462,8 @@ Atribuicao PAtribuicao() :
     retorno = PConditionalOperator()
   | LOOKAHEAD(PPreIncrement() )
     retorno = PPreIncrement()
-  | LOOKAHEAD(PPosIncrement() )
-    retorno = PPosIncrement()
+  | LOOKAHEAD(PPostIncrement() )
+    retorno = PPostIncrement()
   | retorno = PAtribuicaoSimples()
   )
   {
@@ -507,7 +507,7 @@ PreIncrement PPreIncrement() :
   }
 }
 
-PosIncrement PPosIncrement() :
+PostIncrement PPostIncrement() :
 {
   Id id;
   Expressao exp;
@@ -515,7 +515,7 @@ PosIncrement PPosIncrement() :
 {
   id = PId() < ATTRIB >  exp = PExpPrimaria() <CONCAT> 
   {
-    return new PosIncrement(id, exp);
+    return new PostIncrement(id, exp);
   }
 }
 
