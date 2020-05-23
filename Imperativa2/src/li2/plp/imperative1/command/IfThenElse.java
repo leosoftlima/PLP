@@ -58,6 +58,8 @@ public class IfThenElse implements Comando {
 
 	@Override
 	public Comando corrigir() {
+		this.comandoThen = comandoThen.corrigir();
+		this.comandoElse = comandoElse.corrigir();
 		return this;
 	}
 }
