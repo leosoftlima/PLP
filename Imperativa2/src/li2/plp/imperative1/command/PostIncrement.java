@@ -13,13 +13,13 @@ import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 
-public class PosIncrement implements Atribuicao {
+public class PostIncrement implements Atribuicao {
 	
 	private Id id;
 
 	private Expressao expressao;
 
-	public PosIncrement(Id id, Expressao expressao) {
+	public PostIncrement(Id id, Expressao expressao) {
 		this.id = id;
 		this.expressao = expressao;
 	}

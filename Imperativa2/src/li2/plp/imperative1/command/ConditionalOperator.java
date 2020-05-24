@@ -34,12 +34,20 @@ public class ConditionalOperator implements Atribuicao {
 
 	@Override
 	public Comando corrigir() {
-		return new IfThenElse(getExpressao(), new AtribuicaoSimples(id, ternario.getExpressaoInterrogacao()),
-				new AtribuicaoSimples(id, ternario.getExpressaoDoisPontos())).corrigir();
+		return new IfThenElse(getExpressao(), getAtribuicao(id, ternario.getExpressaoInterrogacao()),
+				getAtribuicao(id, ternario.getExpressaoDoisPontos())).corrigir();
 	}
 
 	@Override
 	public Expressao getExpressao() {
 		return this.ternario.getExpressao();
+	}
+
+	private Atribuicao getAtribuicao(Id id, Expressao expressao) {
+		if (expressao instanceof Ternario) {
+			return new ConditionalOperator(id, (Ternario) expressao);
+		} else {
+			return new AtribuicaoSimples(id, expressao);
+		}
 	}
 }
