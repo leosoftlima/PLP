@@ -1,10 +1,12 @@
-package li2.plp.imperative1.command;
+package li2.plp.imperative1.command.atom;
 
 import li2.plp.expressions2.expression.ExpNotEquals;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.ValorInteiro;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
+import li2.plp.imperative1.command.Comando;
+import li2.plp.imperative1.command.IfThenElse;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
