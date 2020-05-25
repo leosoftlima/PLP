@@ -1,6 +1,5 @@
 package li2.plp.imperative1.command;
 
-import li2.plp.expressions2.expression.ExpNotEquals;
 import li2.plp.expressions2.expression.ExpSoma;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
@@ -13,6 +12,7 @@ import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
+import li2.plp.imperative2.util.Logger;
 
 public class PreIncrement implements Atribuicao {
 
@@ -41,13 +41,15 @@ public class PreIncrement implements Atribuicao {
 
 	@Override
 	public Comando corrigir() {
+		Logger.getInstance().append("Atom - > " + id.toString() + " := ++" + expressao.toString() + " trocado por - >" + 
+													id.toString() + " := " + expressao.toString() + "; " + expressao.toString() + ":= " + expressao.toString() +" + 1" );
 		return new SequenciaComando(new AtribuicaoSimples(id, new ExpSoma(expressao, new ValorInteiro(1))), 
 				                    new AtribuicaoSimples(new Id(getExpressao().toString()), new ExpSoma(expressao, new ValorInteiro(1)))).corrigir();
+		
 	}
 
 	@Override
 	public Expressao getExpressao() {
-		// TODO Auto-generated method stub
 		return this.expressao;
 	}
 	

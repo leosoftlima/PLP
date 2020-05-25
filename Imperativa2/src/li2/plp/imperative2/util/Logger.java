@@ -12,10 +12,13 @@ public class Logger {
               return instance;
     }
 
+	public StringBuilder append(String str) {
+		return mensagem.append(str);
+	}
+	
 	public StringBuilder getMensagem() {
 		return mensagem;
 	}
-
 	public void limparMensagem() {
 		this.mensagem.setLength(0);  ;
 	}

@@ -2,7 +2,7 @@
     var x= 4,
     var y = 2,	
     proc met(){
-	    y:= y++
+	    x:= ++y
     };
     call met();
 	write(y)
@@ -11,7 +11,7 @@
     var x= 4,
     var y = 2,	
     proc met(){
-	    y:= y++
+	    x:= y++
     };
     call met();
 	write(y)
