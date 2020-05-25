@@ -211,7 +211,9 @@ public class MultiInterpretador {
 		}
 
 		prog = Imp2Parser.Input();
-       Logger.getInstance().limparMensagem();
+
+		Logger.getInstance().limparMensagem();
+
 		messageBoard.setText("sintaxe verificada com sucesso!\n");
 		li2.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp2(entradaStr);
 		prog.corrigir();

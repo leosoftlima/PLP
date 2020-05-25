@@ -1,22 +1,25 @@
-package li2.plp.imperative1.command;
+package li2.plp.imperative1.command.atom;
 
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
-import li2.plp.expressions2.expression.Ternario;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
+import li2.plp.imperative1.command.Atribuicao;
+import li2.plp.imperative1.command.AtribuicaoSimples;
+import li2.plp.imperative1.command.Comando;
+import li2.plp.imperative1.command.SequenciaComando;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 
-public class ConditionalOperator implements Atribuicao {
+public class AssignmentAsValue implements Atribuicao {
 	private Id id;
-	private Ternario ternario;
+	private Atribuicao atribuicao;
 
-	public ConditionalOperator(Id id, Ternario ternario) {
+	public AssignmentAsValue(Id id, Atribuicao atribuicao) {
 		this.id = id;
-		this.ternario = ternario;
+		this.atribuicao = atribuicao;
 	}
 
 	@Override
@@ -34,20 +37,12 @@ public class ConditionalOperator implements Atribuicao {
 
 	@Override
 	public Comando corrigir() {
-		return new IfThenElse(getExpressao(), getAtribuicao(id, ternario.getExpressaoInterrogacao()),
-				getAtribuicao(id, ternario.getExpressaoDoisPontos())).corrigir();
+		return new SequenciaComando(this.atribuicao, new AtribuicaoSimples(id, getExpressao())).corrigir();
 	}
 
 	@Override
 	public Expressao getExpressao() {
-		return this.ternario.getExpressao();
+		return this.atribuicao.getExpressao();
 	}
 
-	private Atribuicao getAtribuicao(Id id, Expressao expressao) {
-		if (expressao instanceof Ternario) {
-			return new ConditionalOperator(id, (Ternario) expressao);
-		} else {
-			return new AtribuicaoSimples(id, expressao);
-		}
-	}
 }

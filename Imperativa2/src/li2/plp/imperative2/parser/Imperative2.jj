@@ -9,12 +9,14 @@ package li2.plp.imperative2.parser;
 import li2.plp.expressions1.util.*;
 import li2.plp.expressions2.expression.*;
 import li2.plp.imperative1.command.*;
+import li2.plp.imperative1.command.atom.*;
 import li2.plp.imperative1.declaration.*;
 import li2.plp.imperative1.memory.*;
 import li2.plp.imperative2.*;
 import li2.plp.imperative2.command.*;
 import li2.plp.imperative2.declaration.*;
 import li2.plp.imperative2.memory.*;
+import li2.plp.imperative2.util.*;
 import java.util.*;
 
 public class Imp2Parser
@@ -69,12 +71,16 @@ public class Imp2Parser
     try
     {
       Programa programa = parser.Input();
+
+      Logger.getInstance().limparMensagem();
+      
       System.out.println("Imperativa 2 PLP Parser Version 0.0.1:  Imperativa2 program parsed successfully.");
       programa.corrigir();
       if (programa.checaTipo(new ContextoCompilacaoImperativa(entrada)))
       {
         ListaValor saida = programa.executar(new ContextoExecucaoImperativa2(entrada));
         System.out.println(saida);
+        System.out.println(Logger.getInstance().getMensagem());
       }
       else
       {
@@ -460,9 +466,9 @@ Atribuicao PAtribuicao() :
     retorno = PAssignmentAsValue()
   | LOOKAHEAD(PId() < ATTRIB > PTernario())
     retorno = PConditionalOperator()
-  | LOOKAHEAD(PPreIncrement() )
+  | LOOKAHEAD(PPreIncrement())
     retorno = PPreIncrement()
-  | LOOKAHEAD(PPostIncrement() )
+  | LOOKAHEAD(PPostIncrement())
     retorno = PPostIncrement()
   | retorno = PAtribuicaoSimples()
   )
@@ -477,7 +483,7 @@ AssignmentAsValue PAssignmentAsValue() :
   Atribuicao atribuicao;
 }
 {
-  id = PId() < ATTRIB > atribuicao = PAtribuicao() 
+  id = PId() < ATTRIB > atribuicao = PAtribuicao()
   {
     return new AssignmentAsValue(id, atribuicao);
   }
@@ -489,7 +495,7 @@ ConditionalOperator PConditionalOperator() :
   Ternario ternario;
 }
 {
-  id = PId() < ATTRIB > ternario = PTernario() 
+  id = PId() < ATTRIB > ternario = PTernario()
   {
     return new ConditionalOperator(id, ternario);
   }
@@ -501,7 +507,7 @@ PreIncrement PPreIncrement() :
   Expressao exp;
 }
 {
-  id = PId() < ATTRIB > <CONCAT>  exp = PExpressao()
+  id = PId() < ATTRIB > < CONCAT > exp = PExpressao()
   {
     return new PreIncrement(id, exp);
   }
@@ -513,7 +519,7 @@ PostIncrement PPostIncrement() :
   Expressao exp;
 }
 {
-  id = PId() < ATTRIB >  exp = PExpPrimaria() <CONCAT> 
+  id = PId() < ATTRIB > exp = PExpPrimaria() < CONCAT >
   {
     return new PostIncrement(id, exp);
   }
@@ -665,22 +671,23 @@ Expressao PExpCondicional() :
   Expressao retorno;
 }
 {
-(
-  LOOKAHEAD(PExpPrimaria() < AND >)
-  retorno = PExpAnd()
-| LOOKAHEAD(PExpPrimaria() < OR >)
-  retorno = PExpOr()
-| LOOKAHEAD(PExpPrimaria() < EQ >)
-  retorno = PExpEquals()
-| LOOKAHEAD(PExpPrimaria() < NE >)
-  retorno = PExpNotEquals()
-| LOOKAHEAD(PExpPrimaria() < REM >)
-  retorno = PExpRem()
+  (
+    LOOKAHEAD(PExpPrimaria() < AND >)
+    retorno = PExpAnd()
+  | LOOKAHEAD(PExpPrimaria() < OR >)
+    retorno = PExpOr()
+  | LOOKAHEAD(PExpPrimaria() < EQ >)
+    retorno = PExpEquals()
+  | LOOKAHEAD(PExpPrimaria() < NE >)
+    retorno = PExpNotEquals()
+  | LOOKAHEAD(PExpPrimaria() < REM >)
+    retorno = PExpRem()
   )
   {
     return retorno;
   }
 }
+
 Expressao PExpBinaria() :
 {
   Expressao retorno, param2;
@@ -875,9 +882,9 @@ Comando PComandoSimples() :
   (
     retorno = PSkip()
   | LOOKAHEAD(2)
-    retorno = PImplicitePredicate() 
+    retorno = PImplicitePredicate()
   | LOOKAHEAD(4)
-  	retorno = PAtribuicao()
+    retorno = PAtribuicao()
   | retorno = PComandoDeclaracao()
   | retorno = PWhile()
   | retorno = PIfThenElse()
