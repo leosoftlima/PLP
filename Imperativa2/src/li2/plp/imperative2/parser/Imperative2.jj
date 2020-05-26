@@ -503,25 +503,25 @@ ConditionalOperator PConditionalOperator() :
 
 PreIncrement PPreIncrement() :
 {
-  Id id;
-  Expressao exp;
+  Id id1;
+  Id id2;
 }
 {
-  id = PId() < ATTRIB > < CONCAT > exp = PExpressao()
+  id1 = PId() < ATTRIB > < CONCAT > id2 = PId()
   {
-    return new PreIncrement(id, exp);
+    return new PreIncrement(id1, id2);
   }
 }
 
 PostIncrement PPostIncrement() :
 {
-  Id id;
-  Expressao exp;
+  Id id1;
+  Id id2;
 }
 {
-  id = PId() < ATTRIB > exp = PExpPrimaria() < CONCAT >
+  id1 = PId() < ATTRIB > id2 = PId() < CONCAT >
   {
-    return new PostIncrement(id, exp);
+    return new PostIncrement(id1, id2);
   }
 }
 

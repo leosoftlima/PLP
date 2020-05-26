@@ -20,13 +20,12 @@ import li2.plp.imperative2.util.Logger;
 
 public class PreIncrement implements Atribuicao {
 
-	private Id id;
+	private Id id1;
+	private Id id2;
 
-	private Expressao expressao;
-
-	public PreIncrement(Id id, Expressao expressao) {
-		this.id = id;
-		this.expressao = expressao;
+	public PreIncrement(Id id1, Id id2) {
+		this.id1 = id1;
+		this.id2 = id2;
 	}
 
 	@Override
@@ -44,22 +43,21 @@ public class PreIncrement implements Atribuicao {
 
 	@Override
 	public Comando corrigir() {
-		Logger.getInstance().append("O átomo " + this + " foi trocado por " + id.toString() + " := "
-				+ expressao.toString() + "; " + expressao.toString() + " := " + expressao.toString() + " + 1");
+		Logger.getInstance().append("O átomo " + this + " foi trocado por " + id2.toString() + " += 1; "
+				+ id1.toString() + " = " + id2.toString() + ";");
 
-		return new SequenciaComando(new AtribuicaoSimples(id, new ExpSoma(expressao, new ValorInteiro(1))),
-				new AtribuicaoSimples(new Id(getExpressao().toString()), new ExpSoma(expressao, new ValorInteiro(1))))
-						.corrigir();
+		return new SequenciaComando(new AtribuicaoSimples(id2, getExpressao()), new AtribuicaoSimples(id1, id2))
+				.corrigir();
 
 	}
 
 	@Override
 	public Expressao getExpressao() {
-		return this.expressao;
+		return new ExpSoma(id2, new ValorInteiro(1));
 	}
 
 	public String toString() {
-		return id.toString() + " := ++" + expressao.toString();
+		return id1.toString() + " := ++" + id2.toString() + ";";
 	}
 
 }
