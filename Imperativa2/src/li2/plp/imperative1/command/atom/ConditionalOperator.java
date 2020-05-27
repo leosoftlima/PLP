@@ -43,6 +43,11 @@ public class ConditionalOperator implements Atribuicao {
 	}
 
 	@Override
+	public Id getId() {
+		return this.id;
+	}
+
+	@Override
 	public Expressao getExpressao() {
 		return this.ternario.getExpressao();
 	}

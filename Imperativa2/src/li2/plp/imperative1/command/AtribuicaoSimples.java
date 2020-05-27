@@ -56,8 +56,16 @@ public class AtribuicaoSimples implements Atribuicao {
 	}
 
 	@Override
+	public Id getId() {
+		return this.id;
+	}
+
+	@Override
 	public Expressao getExpressao() {
 		return this.expressao;
 	}
 
+	public String toString() {
+		return id.toString() + " := " + expressao.toString();
+	}
 }

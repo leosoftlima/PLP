@@ -71,9 +71,7 @@ public class Imp2Parser
     try
     {
       Programa programa = parser.Input();
-
       Logger.getInstance().limparMensagem();
-      
       System.out.println("Imperativa 2 PLP Parser Version 0.0.1:  Imperativa2 program parsed successfully.");
       programa.corrigir();
       if (programa.checaTipo(new ContextoCompilacaoImperativa(entrada)))
@@ -466,10 +464,6 @@ Atribuicao PAtribuicao() :
     retorno = PAssignmentAsValue()
   | LOOKAHEAD(PId() < ATTRIB > PTernario())
     retorno = PConditionalOperator()
-  | LOOKAHEAD(PPreIncrement())
-    retorno = PPreIncrement()
-  | LOOKAHEAD(PPostIncrement())
-    retorno = PPostIncrement()
   | retorno = PAtribuicaoSimples()
   )
   {
@@ -883,6 +877,10 @@ Comando PComandoSimples() :
     retorno = PSkip()
   | LOOKAHEAD(2)
     retorno = PImplicitePredicate()
+  | LOOKAHEAD(PPreIncrement())
+    retorno = PPreIncrement()
+  | LOOKAHEAD(PPostIncrement())
+    retorno = PPostIncrement()
   | LOOKAHEAD(4)
     retorno = PAtribuicao()
   | retorno = PComandoDeclaracao()
