@@ -81,7 +81,13 @@ public class Ternario implements Expressao {
 	public Expressao getExpressaoDoisPontos() {
 		return expressaoDoisPontos;
 	}
+
 	public Expressao getExpressao() {
 		return expressao;
+	}
+
+	public String toString() {
+		return getExpressao().toString() + " ? " + getExpressaoInterrogacao().toString() + " : "
+				+ getExpressaoDoisPontos().toString();
 	}
 }
