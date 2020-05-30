@@ -39,8 +39,8 @@ public class ImplicitePredicate implements Comando {
 
 	@Override
 	public Comando corrigir() {
-		Logger.getInstance().append("O átomo " + this + " foi trocado por if " + expressao.toString() + " != 0 then "
-				+ comandoThen.toString() + " else " + comandoElse.toString() + ";");
+		Logger.getInstance().append("O átomo " + this + " foi trocado por if ( " + expressao.toString()
+				+ " ) != 0 then " + comandoThen.toString() + " else " + comandoElse.toString());
 
 		this.comandoThen = comandoThen.corrigir();
 		this.comandoElse = comandoElse.corrigir();

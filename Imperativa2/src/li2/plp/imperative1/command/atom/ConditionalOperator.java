@@ -42,7 +42,7 @@ public class ConditionalOperator implements Atribuicao {
 		Logger.getInstance()
 				.append("O átomo " + this + " foi trocado por if " + ternario.getExpressao() + " then " + id.toString()
 						+ " := " + ternario.getExpressaoInterrogacao() + " else " + id.toString() + " := "
-						+ ternario.getExpressaoDoisPontos() + ";");
+						+ ternario.getExpressaoDoisPontos());
 
 		return new IfThenElse(getExpressao(), getAtribuicao(id, ternario.getExpressaoInterrogacao()),
 				getAtribuicao(id, ternario.getExpressaoDoisPontos())).corrigir();
