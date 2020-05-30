@@ -13,14 +13,14 @@ import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 import li2.plp.imperative2.util.Logger;
 
-public class ImplicitePredicate implements Comando {
+public class ImplicitPredicate implements Comando {
 	private ExpRem expressao;
 
 	private Comando comandoThen;
 
 	private Comando comandoElse;
 
-	public ImplicitePredicate(ExpRem expressao, Comando comandoThen, Comando comandoElse) {
+	public ImplicitPredicate(ExpRem expressao, Comando comandoThen, Comando comandoElse) {
 		this.expressao = expressao;
 		this.comandoThen = comandoThen;
 		this.comandoElse = comandoElse;

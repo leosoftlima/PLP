@@ -829,7 +829,7 @@ ExpRem PExpRem() :
   }
 }
 
-ImplicitePredicate PImplicitePredicate() :
+ImplicitPredicate PImplicitPredicate() :
 {
   ExpRem expressao;
   Comando comandoThen;
@@ -843,7 +843,7 @@ ImplicitePredicate PImplicitePredicate() :
   < ELSE > 
   comandoElse = PComando()
   {
-    return new ImplicitePredicate(expressao, comandoThen, comandoElse);
+    return new ImplicitPredicate(expressao, comandoThen, comandoElse);
   }
 }
 
@@ -882,8 +882,8 @@ Comando PComandoSimples() :
 {
   (
     retorno = PSkip()
-  | LOOKAHEAD(PImplicitePredicate())
-    retorno = PImplicitePredicate()
+  | LOOKAHEAD(PImplicitPredicate())
+    retorno = PImplicitPredicate()
   | LOOKAHEAD(4)
     retorno = PAtribuicao()
   | retorno = PComandoDeclaracao()
