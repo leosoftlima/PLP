@@ -460,10 +460,14 @@ Atribuicao PAtribuicao() :
 }
 {
   (
-    LOOKAHEAD(PId() < ATTRIB > PAtribuicao())
+    LOOKAHEAD(PAssignmentAsValue())
     retorno = PAssignmentAsValue()
-  | LOOKAHEAD(PId() < ATTRIB > PTernario())
+  | LOOKAHEAD(PConditionalOperator())
     retorno = PConditionalOperator()
+  | LOOKAHEAD(PPreIncrement())
+    retorno = PPreIncrement()
+  | LOOKAHEAD(PPostIncrement())
+    retorno = PPostIncrement()
   | retorno = PAtribuicaoSimples()
   )
   {
@@ -684,7 +688,7 @@ Expressao PExpCondicional() :
 
 Expressao PExpBinaria() :
 {
-  Expressao retorno, param2;
+  Expressao retorno;
 }
 {
   (
@@ -692,18 +696,10 @@ Expressao PExpBinaria() :
     retorno = PExpConcat()
   | LOOKAHEAD(PExpPrimaria() < MINUS >)
     retorno = PExpSub()
-  | LOOKAHEAD(PExpPrimaria() < AND >)
-    retorno = PExpAnd()
-  | LOOKAHEAD(PExpPrimaria() < OR >)
-    retorno = PExpOr()
-  | LOOKAHEAD(PExpPrimaria() < EQ >)
-    retorno = PExpEquals()
-  | LOOKAHEAD(PExpPrimaria() < NE >)
-    retorno = PExpNotEquals()
   | LOOKAHEAD(PExpPrimaria() < PLUS >)
     retorno = PExpSoma()
-  | LOOKAHEAD(PExpPrimaria() < REM >)
-    retorno = PExpRem()
+  | LOOKAHEAD(PExpCondicional())
+    retorno = PExpCondicional()
   )
   {
     return retorno;
@@ -815,14 +811,17 @@ ExpRem PExpRem() :
 }
 {
   esq = PExpPrimaria() 
-  < REM > 
-  dir = PExpressao()
+  < REM >
+  (
+    dir = PId()
+  | dir = PValorInteiro()
+  )
   {
     return new ExpRem(esq, dir);
   }
 }
 
-ImplicitePredicate PImplicitePredicate() :
+ImplicitPredicate PImplicitPredicate() :
 {
   ExpRem expressao;
   Comando comandoThen;
@@ -836,7 +835,7 @@ ImplicitePredicate PImplicitePredicate() :
   < ELSE > 
   comandoElse = PComando()
   {
-    return new ImplicitePredicate(expressao, comandoThen, comandoElse);
+    return new ImplicitPredicate(expressao, comandoThen, comandoElse);
   }
 }
 
@@ -848,7 +847,7 @@ Expressao PExpressao() :
   (
     LOOKAHEAD(2)
     retorno = PExpUnaria()
-  | LOOKAHEAD(5)
+  | LOOKAHEAD(PTernario())
     retorno = PTernario()
   | LOOKAHEAD(PExpPrimaria() (< OR >
   | < AND >
@@ -875,12 +874,8 @@ Comando PComandoSimples() :
 {
   (
     retorno = PSkip()
-  | LOOKAHEAD(2)
-    retorno = PImplicitePredicate()
-  | LOOKAHEAD(PPreIncrement())
-    retorno = PPreIncrement()
-  | LOOKAHEAD(PPostIncrement())
-    retorno = PPostIncrement()
+  | LOOKAHEAD(PImplicitPredicate())
+    retorno = PImplicitPredicate()
   | LOOKAHEAD(4)
     retorno = PAtribuicao()
   | retorno = PComandoDeclaracao()

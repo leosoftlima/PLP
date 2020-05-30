@@ -13,6 +13,7 @@ import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
+import li2.plp.imperative2.util.Logger;
 
 public class ConditionalOperator implements Atribuicao {
 	private Id id;
@@ -38,6 +39,11 @@ public class ConditionalOperator implements Atribuicao {
 
 	@Override
 	public Comando corrigir() {
+		Logger.getInstance()
+				.append("O átomo " + this + " foi trocado por if " + ternario.getExpressao() + " then " + id.toString()
+						+ " := " + ternario.getExpressaoInterrogacao() + " else " + id.toString() + " := "
+						+ ternario.getExpressaoDoisPontos());
+
 		return new IfThenElse(getExpressao(), getAtribuicao(id, ternario.getExpressaoInterrogacao()),
 				getAtribuicao(id, ternario.getExpressaoDoisPontos())).corrigir();
 	}
@@ -50,6 +56,10 @@ public class ConditionalOperator implements Atribuicao {
 	@Override
 	public Expressao getExpressao() {
 		return this.ternario.getExpressao();
+	}
+
+	public String toString() {
+		return id.toString() + " := " + ternario.toString();
 	}
 
 	private Atribuicao getAtribuicao(Id id, Expressao expressao) {
