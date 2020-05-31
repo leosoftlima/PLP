@@ -43,11 +43,12 @@ public class PreIncrement implements Atribuicao {
 
 	@Override
 	public Comando corrigir() {
-		Logger.getInstance().append("O átomo " + this + " foi trocado por " + id2.toString() + " := " + id2.toString()
-				+ " + 1; " + id1.toString() + " := " + id2.toString());
+		SequenciaComando novoComando = new SequenciaComando(
+				new AtribuicaoSimples(id2, new ExpSoma(id2, new ValorInteiro(1))), new AtribuicaoSimples(id1, id2));
 
-		return new SequenciaComando(new AtribuicaoSimples(id2, new ExpSoma(id2, new ValorInteiro(1))),
-				new AtribuicaoSimples(id1, id2)).corrigir();
+		Logger.getInstance().append("O átomo " + this + " foi trocado por " + novoComando.toString());
+
+		return novoComando.corrigir();
 
 	}
 
