@@ -33,4 +33,8 @@ public class ExpNotEquals extends ExpBinaria {
 		return new ExpNotEquals(esq.clone(), dir.clone());
 	}
 
+	public String toString() {
+		return "(" + getEsq() + ") != " + getDir();
+	}
+
 }
