@@ -3,7 +3,7 @@
     var y = 1,
     var z = 3,
     proc example(){
-    	if  z % 2 then x := y := z++ else x := y := 6
+    	if  z % 2 then x := y := z++ else x := y := ++z
     };
     call example();
     write(x);
