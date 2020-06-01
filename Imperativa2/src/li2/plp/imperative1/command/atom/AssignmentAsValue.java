@@ -38,10 +38,11 @@ public class AssignmentAsValue implements Atribuicao {
 
 	@Override
 	public Comando corrigir() {
-		Logger.getInstance().append("O átomo " + this + " foi trocado por " + atribuicao.toString() + "; "
-				+ id.toString() + " := " + atribuicao.getId());
+		SequenciaComando novoComando = new SequenciaComando(this.atribuicao, new AtribuicaoSimples(id, getExpressao()));
 
-		return new SequenciaComando(this.atribuicao, new AtribuicaoSimples(id, getExpressao())).corrigir();
+		Logger.getInstance().append("O átomo " + this + " foi trocado por " + novoComando.toString());
+
+		return novoComando.corrigir();
 	}
 
 	@Override

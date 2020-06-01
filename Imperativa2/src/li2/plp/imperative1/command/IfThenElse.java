@@ -62,4 +62,8 @@ public class IfThenElse implements Comando {
 		this.comandoElse = comandoElse.corrigir();
 		return this;
 	}
+
+	public String toString() {
+		return "if " + expressao.toString() + " then " + comandoThen.toString() + " else " + comandoElse.toString();
+	}
 }

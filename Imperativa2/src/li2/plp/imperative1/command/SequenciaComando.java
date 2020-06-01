@@ -50,4 +50,8 @@ public class SequenciaComando implements Comando {
 		this.comando2 = comando2.corrigir();
 		return this;
 	}
+
+	public String toString() {
+		return this.comando1.toString() + "; " + this.comando2.toString();
+	}
 }
