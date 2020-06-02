@@ -53,7 +53,7 @@ public class PreIncrement implements Atribuicao {
 	}
 
 	public String toString() {
-		return id1.toString() + " := ++" + id2.toString() + ";";
+		return id1.toString() + " := ++" + id2.toString();
 	}
 
 	@Override
